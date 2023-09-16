@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "55428548207",
+    "project_id": "datatodaysfood",
+    "storage_bucket": "datatodaysfood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55428548207:android:6510dfafc321915c4bef9a",
+        "android_client_info": {
+          "package_name": "com.example.app_todays_food"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55428548207-klbbgdhhtds1dd0q5i20n79uik2uekiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1iECmc9hRRlA1QzBDc0m5HPpQ8l2zm-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55428548207-klbbgdhhtds1dd0q5i20n79uik2uekiq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "55428548207-6ntb4c55qijf87bjmoh15iok3c948643.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todaysFood"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

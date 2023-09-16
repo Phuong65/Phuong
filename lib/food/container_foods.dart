@@ -1,0 +1,197 @@
+import 'package:app_todays_food/datafirebase/auth.dart';
+import 'package:app_todays_food/datafirebase/data_foods.dart';
+import 'package:app_todays_food/food/detail_food/main_detail.dart';
+import 'package:app_todays_food/item_custom/Sized_Box.dart';
+import 'package:app_todays_food/item_custom/toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+class container_foods extends StatefulWidget {
+   container_foods({super.key, required this.item, required this.premium});
+
+  bool premium;
+  var item;
+
+  @override
+  State<container_foods> createState() => _container_foodsState();
+}
+
+class _container_foodsState extends State<container_foods> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  bool icon = false;
+
+  Future<List<String>>? _typefListFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _typefListFuture =
+        data_foods().getListFromRealtimeDatabase('favorite', auth().getid());
+    container_foods;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<String>>(
+        future: _typefListFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator(),); // Hiển thị tiến trình đợi nếu dữ liệu đang được tải
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return w(widget, context, icon); // Xử lý trường hợp không có dữ liệu
+          } else {
+            final List<String> list = snapshot.data!;
+            final bool icon = data_foods().seticon(
+                widget.item.id.toString(), list);
+            
+
+            return w(widget, context, icon);
+          }
+        },
+    );
+  }
+  }
+Widget w(container_foods widget, BuildContext context, bool icon){
+  return InkWell(
+    onTap: () async {
+      if (widget.premium == true) {
+        if (widget.premium == await auth().getpremium()) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      main_detail(item: widget.item)));
+        } else {
+          showToast(context,
+              'Bạn chưa đăng ký Premium hoặc chưa đăng nhập');
+          print('premium ${await auth().getpremium()}');
+        }
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    main_detail(item: widget.item)));
+      }
+    },
+    child: Container(
+      width: 200,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+// Màu và độ trong suốt của độ nổi
+            spreadRadius: 2,
+// Độ phân tán của độ nổi
+            blurRadius: 5,
+// Độ mờ của độ nổi
+            offset: Offset(0, 1), // Độ dịch chuyển độ nổi
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10)),
+            child: Image.network(
+              widget.item.image,
+              width: double.infinity,
+              height: 150,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Sized_Box(w: 0, h: 10),
+          Padding(
+            padding: EdgeInsets.only(left: 10, bottom: 15),
+            child: Text(
+              widget.item.name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Số bước: ${widget.item.step_count}',
+              style: TextStyle(fontSize: 13),
+            ),
+          ),
+          Sized_Box(w: 0, h: 5),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+             Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Thành phần: ${widget.item.ingredient_count}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+               Padding(padding: EdgeInsets.only(right: 5),
+               child:  widget.premium
+                   ? Image.network(
+                 'https://cdn-icons-png.flaticon.com/128/6941/6941697.png',
+                 width: 20,
+                 height: 20,
+               )
+                   : Image.network(
+                 'https://cdn-icons-png.flaticon.com/128/891/891438.png',
+                 width: 20,
+                 height: 20,
+               ),),
+                InkWell(
+                  onTap: () async {
+                    if(icon == false){
+                      try{
+                        await data_foods().addListFavorite(auth().getid(), widget.item.id.toString());
+                        showToast(context, 'Đã thêm vào danh sách favorite');
+                      }catch(err) {
+                        print(err);
+                      }
+                    }else{
+                      await data_foods().removeListFavorite(auth().getid(), widget.item.id.toString());
+                      showToast(context, 'Đã xóa danh sách favorite');
+                    }
+
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 2),
+                    child: Icon(
+                      icon ? Icons.favorite :  Icons.favorite_outline,
+                      // Chọn biểu tượng dựa trên điều kiện
+                      size: 20, // Kích thước của biểu tượng
+
+
+
+
+                      color: icon ? Colors
+                          .red : Colors.black, // Màu sắc của biểu tượng
+                    ),
+                  ),
+                ),
+              ],)
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+// aaaaaaaaaaaaaaaaaa
