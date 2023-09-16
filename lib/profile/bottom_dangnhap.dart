@@ -1,5 +1,4 @@
 import 'package:app_todays_food/item_custom/toast.dart';
-import 'package:app_todays_food/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app_todays_food/item_custom/dialog.dart';

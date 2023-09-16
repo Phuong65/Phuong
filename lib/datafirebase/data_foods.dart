@@ -3,7 +3,6 @@ import 'package:app_todays_food/Models/Typef.dart';
 import 'package:app_todays_food/Models/foods.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 class data_foods {
   Future<List<Typef>> getlist() async {

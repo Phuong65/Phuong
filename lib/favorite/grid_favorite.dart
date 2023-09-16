@@ -1,8 +1,8 @@
-import 'package:app_todays_food/Models/foods.dart';
 import 'package:app_todays_food/datafirebase/auth.dart';
 import 'package:app_todays_food/datafirebase/data_foods.dart';
 import 'package:app_todays_food/favorite/container_favorite.dart';
 import 'package:flutter/material.dart';
+
 class grid_favorite extends StatefulWidget {
   grid_favorite({super.key});
 
@@ -17,9 +17,11 @@ class _grid_favoriteState extends State<grid_favorite> {
   void initState() {
     super.initState();
     setState(() {
-      _typefListFuture = data_foods().getListFromRealtimeDatabase('favorite', auth().getid());
+      _typefListFuture =
+          data_foods().getListFromRealtimeDatabase('favorite', auth().getid());
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<String>>(
@@ -44,9 +46,7 @@ class _grid_favoriteState extends State<grid_favorite> {
             itemCount: list.length,
             itemBuilder: (BuildContext context, int index) {
               final item = list[index];
-              return container_favorite(
-                item: list[index]
-              );
+              return container_favorite(item: list[index]);
             },
           );
         }

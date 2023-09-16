@@ -1,5 +1,4 @@
 import 'package:app_todays_food/datafirebase/data_foods.dart';
-import 'package:app_todays_food/food/detail_food/item_list.dart';
 import 'package:app_todays_food/item_custom/Sized_Box.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +10,10 @@ class main_ifmt extends StatefulWidget {
 }
 
 class _main_ifmtState extends State<main_ifmt> {
-  late Future<List<String>> stringListFuture;
 
   @override
   void initState() {
     super.initState();
-    stringListFuture = data_foods().getListFromRealtimeDatabase('ingredient', '1');
   }
 
   @override

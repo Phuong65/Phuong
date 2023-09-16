@@ -3,7 +3,6 @@ import 'package:app_todays_food/datafirebase/data_foods.dart';
 import 'package:app_todays_food/home/food_random/container_food.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
-import 'dart:ui';
 
 class grid_foodrandom extends StatefulWidget {
   grid_foodrandom({super.key});
