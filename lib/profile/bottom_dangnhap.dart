@@ -45,9 +45,9 @@ class _bottom_dangnhapState extends State<bottom_dangnhap> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                
-                
-                prefixIcon: Icon(Icons.account_circle),
+
+
+                prefixIcon: Icon(Icons.email),
                 labelText: 'Tài khoản',
               ),
             ),
