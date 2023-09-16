@@ -1,4 +1,5 @@
 import 'package:app_todays_food/datafirebase/data_foods.dart';
+import 'package:app_todays_food/ifmt/nutrition.dart';
 import 'package:app_todays_food/item_custom/Sized_Box.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,6 @@ class main_ifmt extends StatefulWidget {
 }
 
 class _main_ifmtState extends State<main_ifmt> {
-
   @override
   void initState() {
     super.initState();
@@ -26,8 +26,7 @@ class _main_ifmtState extends State<main_ifmt> {
           children: [
             Sized_Box(w: 0, h: 50),
             InkWell(
-              onTap: () {
-              },
+              onTap: () {},
               child: Text(
                 'Thông tin ứng dụng',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -36,25 +35,61 @@ class _main_ifmtState extends State<main_ifmt> {
             Sized_Box(w: 0, h: 10),
             InkWell(
               onTap: () {},
-              child: Text(
-                'Calories là gì ?',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Calories là gì ?',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    size: 50,
+                  ),
+                ],
               ),
             ),
             Sized_Box(w: 0, h: 10),
             InkWell(
               onTap: () {},
-              child: Text(
-                'Fat là gì ?',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Fat là gì ?',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    size: 50,
+                  ),
+                ],
               ),
             ),
             Sized_Box(w: 0, h: 10),
             InkWell(
-              onTap: () {},
-              child: Text(
-                'Protein là gì ?',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              onTap: () async {
+                final String a = await data_foods().getdetailnutrition('protein');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => nutrition(
+                        item: a),
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Protein là gì ?',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    size: 50,
+                  ),
+                ],
               ),
             ),
           ],

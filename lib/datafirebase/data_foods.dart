@@ -252,4 +252,17 @@ class data_foods {
       print("Lỗi khi xóa phần tử khỏi danh sách: $error");
     });
   }
+  Future<String> getdetailnutrition(String title) async {
+    final ref = FirebaseDatabase.instance.ref();
+    final snapshot = await ref.child('ifmt').get();
+    if (snapshot.exists) {
+      print(snapshot.value);
+      final data = snapshot.value as Map<Object?, Object?>;
+      String a = data['$title'].toString();
+      return a;
+    } else {
+      print('No data available.');
+      return '';
+    }
+  }
 }
