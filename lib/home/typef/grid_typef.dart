@@ -25,7 +25,7 @@ class _typefState extends State<grid_typef> {
       future: _typefListFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Hiển thị tiến trình đợi nếu dữ liệu đang được tải
+          return Container(); // Hiển thị tiến trình đợi nếu dữ liệu đang được tải
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

@@ -1,6 +1,7 @@
 import 'package:app_todays_food/datafirebase/auth.dart';
 import 'package:app_todays_food/datafirebase/data_foods.dart';
 import 'package:app_todays_food/favorite/container_favorite.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class grid_favorite extends StatefulWidget {
@@ -12,7 +13,18 @@ class grid_favorite extends StatefulWidget {
 
 class _grid_favoriteState extends State<grid_favorite> {
   Future<List<String>>? _typefListFuture;
+  bool isLoggedIn = false;
 
+
+
+  void checkLoginStatus() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        isLoggedIn = true;
+      });
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -20,6 +32,8 @@ class _grid_favoriteState extends State<grid_favorite> {
       _typefListFuture =
           data_foods().getListFromRealtimeDatabase('favorite', auth().getid());
     });
+
+    checkLoginStatus();
   }
 
   @override
@@ -32,7 +46,7 @@ class _grid_favoriteState extends State<grid_favorite> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Text('No data available'); // Xử lý trường hợp không có dữ liệu
+          return Center(child: isLoggedIn ? Text('Chưa có món ăn yêu thích') : Text('Bạn chưa đăng nhập')); // Xử lý trường hợp không có dữ liệu
         } else {
           final List<String> list = snapshot.data!;
           return GridView.builder(

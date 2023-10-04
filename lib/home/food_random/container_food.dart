@@ -58,7 +58,9 @@ Widget myCustomWidget(container_food widget, BuildContext context, bool icon) {
       if (widget.premium == true) {
         if (widget.premium == await auth().getpremium()) {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MyApp()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => main_detail(item: widget.item)));
         } else {
           showToast(context, 'Bạn chưa đăng ký Premium hoặc chưa đăng nhập');
           print('premium ${await auth().getpremium()}');

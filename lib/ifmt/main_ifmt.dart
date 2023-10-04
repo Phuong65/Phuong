@@ -34,7 +34,10 @@ class _main_ifmtState extends State<main_ifmt> {
             ),
             Sized_Box(w: 0, h: 10),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                final String a = await data_foods().getdetailnutrition('calories');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => nutrition(item: a, title: 'Calories'),),);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -51,7 +54,10 @@ class _main_ifmtState extends State<main_ifmt> {
             ),
             Sized_Box(w: 0, h: 10),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                final String a = await data_foods().getdetailnutrition('fat');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => nutrition(item: a, title: 'Fat'),),);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -74,7 +80,7 @@ class _main_ifmtState extends State<main_ifmt> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => nutrition(
-                        item: a),
+                        item: a, title: 'Protein'),
                   ),
                 );
               },

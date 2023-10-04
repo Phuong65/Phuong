@@ -28,7 +28,7 @@ class _container_foodsState extends State<container_foods> {
     super.initState();
     _typefListFuture =
         data_foods().getListFromRealtimeDatabase('favorite', auth().getid());
-    container_foods;
+
   }
 
   @override
