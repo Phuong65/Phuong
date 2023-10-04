@@ -6,23 +6,31 @@ class container_typef extends StatelessWidget {
 
   var item;
 
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => main_food(title: item.name,)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => main_food(
+                      title: item.name,
+                    )));
       },
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              item.image,
-              width: double.infinity,
+          Positioned(
+            child: Container(
+              width: double.maxFinite,
               height: double.infinity,
-              fit: BoxFit.fill,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                image: NetworkImage(
+                  item.image,
+                ),
+                fit: BoxFit.cover,
+              )),
             ),
           ),
           Positioned(
@@ -30,6 +38,11 @@ class container_typef extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+              ),
               child: Center(
                 child: Text(
                   item.name,
@@ -41,7 +54,6 @@ class container_typef extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );
