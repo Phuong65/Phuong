@@ -73,7 +73,7 @@ class _main_detailState extends State<main_detail> {
                     image: NetworkImage(
                       widget.item.image,
                     ),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   )),
             ),
           ),
@@ -116,7 +116,16 @@ class _main_detailState extends State<main_detail> {
           ),
 
 
-
+          Positioned(
+            top: 250,
+            child: Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+              ),
+            ),
+          ),
           Positioned(
             left: 10,
             top: 250,
@@ -142,8 +151,7 @@ class _main_detailState extends State<main_detail> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                    topRight: Radius.circular(65)),
               ),
               clipBehavior: Clip.antiAlias,
               child: SingleChildScrollView(
@@ -151,7 +159,8 @@ class _main_detailState extends State<main_detail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Sized_Box(w: 0, h: 20),
-                    Center(
+                   Padding(
+                     padding: EdgeInsets.only(left: 10),
                       child: Text('THÀNH PHẦN DINH DƯỠNG',
                           style: TextStyle(
                               fontSize: 20,
